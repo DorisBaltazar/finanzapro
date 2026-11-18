@@ -14,10 +14,12 @@ if (!process.env.JWT_SECRET) {
 
 const app = express();
 
-const origins = (process.env.CORS_ORIGIN || 'http://localhost:3000,http://localhost:5173')
-  .split(',')
-  .map((o) => o.trim())
-  .filter(Boolean);
+const origins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'https://finanzapro-eosin.vercel.app',
+  ...(process.env.CORS_ORIGIN || '').split(',').map((o) => o.trim()).filter(Boolean),
+];
 
 app.use(cors({ origin: origins, credentials: true }));
 app.use(express.json({ limit: '100kb' }));
